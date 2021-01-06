@@ -25,7 +25,6 @@ Example:
 *Output*:
 
     1 Large, Two Topping Pizza - Pepperoni and Cheese: $18.00
-
     1 Medium, Two Topping Pizza - Pepperoni and Cheese: $15.50
     1 Small, Two Topping Pizza - Pepperoni and Cheese: $13.00
 
