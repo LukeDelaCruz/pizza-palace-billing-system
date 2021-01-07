@@ -5,7 +5,7 @@
   "main": "billing.js",
   "scripts": {
     "start": "node billing.js",
-    "test": "mocha --recursive './test/*.js'",
+    "test": "mocha --recursive './test/*spec.js'",
     "clean": "rm -rf node_modules",
     "build": "npm run clean && npm install"
   },
@@ -24,5 +24,8 @@
     "mocha": "^8.2.1",
     "mocha-sinon": "^2.1.2",
     "sinon": "^9.2.3"
+  },
+  "dependencies": {
+    "number-to-words": "^1.2.4"
   }
 }

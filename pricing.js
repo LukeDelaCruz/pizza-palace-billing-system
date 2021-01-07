@@ -14,10 +14,10 @@ const toppingPrices = {
   pineapple: { s: 0.5, m: 0.75, l: 1.0 },
 
   // deluxe toppings
-  sausage:    { s: 2.0, m: 3.0, l: 4.0 },
-  fetaCheese: { s: 2.0, m: 3.0, l: 4.0 },
-  tomatoes:   { s: 2.0, m: 3.0, l: 4.0 },
-  olives:     { s: 2.0, m: 3.0, l: 4.0 },
+  sausage:       { s: 2.0, m: 3.0, l: 4.0 },
+  'feta cheese': { s: 2.0, m: 3.0, l: 4.0 },
+  tomatoes:      { s: 2.0, m: 3.0, l: 4.0 },
+  olives:        { s: 2.0, m: 3.0, l: 4.0 },
 };
 
 const calculatePizzaPrice = (toppings, sizeKey) => {

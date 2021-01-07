@@ -1,4 +1,5 @@
 const expect = require('chai').expect;
+const sinon = require('sinon');
 require('mocha-sinon');
 
 const printReceipt = require('../processReceipt');
@@ -27,5 +28,46 @@ describe('printReceipt()', function () {
     for (const output of expectedLinebyLineOutput) {
       expect(console.log.calledWith(output)).to.be.true;
     }
+  });
+
+  it('should work for one topping', function () {
+    printReceipt(['Large -    Pepperoni']);
+
+    const expectedLinebyLineOutput = [
+      '1 Large, One Topping Pizza - Pepperoni: $17.00',
+      'Subtotal: $17.00',
+      'GST: $0.85',
+      'Total: $17.85',
+    ];
+    for (const output of expectedLinebyLineOutput) {
+      expect(console.log.calledWith(output)).to.be.true;
+    }
+  });
+
+  it('should work for all toppings (case-insensitive)', function () {
+    printReceipt([
+      'large -    cheese, pepperoni,    hAM, pineaPPLe, sausaGE, feta cheese, TOMATOES, OliveS ',
+    ]);
+
+    const expectedLinebyLineOutput = [
+      '1 Large, Eight Topping Pizza - Cheese, Feta cheese, Ham, Olives, Pepperoni, Pineapple, Sausage and Tomatoes: $36.00',
+      'Subtotal: $36.00',
+      'GST: $1.80',
+      'Total: $37.80',
+    ];
+    for (const output of expectedLinebyLineOutput) {
+      expect(console.log.calledWith(output)).to.be.true;
+    }
+  });
+
+  it('should throw an error if no toppings are provided', function () {
+    const noToppingsInput = 'Large - ';
+    const printReceiptSpy = sinon.spy(printReceipt);
+    try {
+      printReceiptSpy([noToppingsInput]);
+    } catch (e) {
+      // pass
+    }
+    expect(printReceiptSpy).to.throw();
   });
 });

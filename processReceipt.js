@@ -1,30 +1,33 @@
+const numToWordConverter = require('number-to-words');
 const { calculatePizzaPrice, gst, toppingPrices } = require('./pricing');
+
 const pizzaConfigs = {};
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
+const roundToNearestCent = (num) => {
+  return (Math.round((num + Number.EPSILON) * 100) / 100).toFixed(2);
+};
+
 const getPizzaReceiptLabel = (sortedToppings, sizeKey) => {
+  const sortedToppingsLen = sortedToppings.length;
   const size = { s: 'Small', m: 'Medium', l: 'Large' }[sizeKey];
-
-  const toppingsWordCount = [
-    '',
-    'One',
-    'Two',
-    'Three',
-    'Four',
-    'Five',
-    'Six',
-    'Seven',
-    'Eight',
-  ][sortedToppings.length];
-
+  const toppingsWordCount = numToWordConverter
+    .toWords(sortedToppingsLen)
+    .capitalize();
   sortedToppings = sortedToppings.map((el) => el.capitalize());
-  const lastTopping = sortedToppings.pop();
-  const toppingsList = `${sortedToppings.join(', ')} and ${lastTopping}`;
 
-  return `${size}, ${toppingsWordCount} Topping Pizza - ${toppingsList}`;
+  let formattedToppingsString;
+  if (sortedToppingsLen > 1) {
+    const lastTopping = sortedToppings.pop();
+    formattedToppingsString = `${sortedToppings.join(', ')} and ${lastTopping}`;
+  } else {
+    formattedToppingsString = sortedToppings[0];
+  }
+
+  return `${size}, ${toppingsWordCount} Topping Pizza - ${formattedToppingsString}`;
 };
 
 const getSortedToppings = (pizza) => {
@@ -58,6 +61,12 @@ const tallyPizzaOrder = (pizza, sizeKey) => {
   }
 
   const sortedToppings = getSortedToppings(pizza);
+
+  const sortedToppingsLen = sortedToppings.length;
+  if (sortedToppingsLen < 1) {
+    throw new Error(`No toppings provided for a pizza!`);
+  }
+
   const pizzaConfigurationPrice = calculatePizzaPrice(sortedToppings, sizeKey);
 
   const pizzaConfig = getPizzaReceiptLabel(sortedToppings, sizeKey);
@@ -78,15 +87,15 @@ const tallyPizzaOrder = (pizza, sizeKey) => {
 
 const printPizzaConfigurationTotal = () => {
   for (const [config, { count, price }] of Object.entries(pizzaConfigs)) {
-    console.log(`${count} ${config}: $${price.toFixed(2)}`);
+    console.log(`${count} ${config}: $${roundToNearestCent(price)}`);
   }
 };
 
 const printOrderTotal = (subTotal) => {
   console.log();
-  console.log(`Subtotal: $${subTotal.toFixed(2)}`);
-  console.log(`GST: $${(subTotal * gst).toFixed(2)}`);
-  console.log(`Total: $${(subTotal * (1 + gst)).toFixed(2)}`);
+  console.log(`Subtotal: $${roundToNearestCent(subTotal)}`);
+  console.log(`GST: $${roundToNearestCent(subTotal * gst)}`);
+  console.log(`Total: $${roundToNearestCent(subTotal * (1 + gst))}`);
 };
 
 const printReceipt = (order) => {
