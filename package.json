@@ -1,0 +1,28 @@
+{
+  "name": "pizza-palace-billing-system",
+  "version": "1.0.0",
+  "description": "A billing system for Pizza Palace that records an order and generates an itemized receipt for the order.",
+  "main": "billing.js",
+  "scripts": {
+    "start": "node billing.js",
+    "test": "mocha --recursive './test/*.js'",
+    "clean": "rm -rf node_modules",
+    "build": "npm run clean && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LukeDelaCruz/pizza-palace-billing-system.git"
+  },
+  "author": "Luke Dela Cruz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LukeDelaCruz/pizza-palace-billing-system/issues"
+  },
+  "homepage": "https://github.com/LukeDelaCruz/pizza-palace-billing-system#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "mocha-sinon": "^2.1.2",
+    "sinon": "^9.2.3"
+  }
+}
