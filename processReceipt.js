@@ -1,7 +1,7 @@
 const numToWordConverter = require('number-to-words');
 const { calculatePizzaPrice, gst, toppingPrices } = require('./pricing');
 
-const pizzaConfigs = {};
+let pizzaConfigs;
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -71,9 +71,10 @@ const tallyPizzaOrder = (pizza, sizeKey) => {
 
   const pizzaConfig = getPizzaReceiptLabel(sortedToppings, sizeKey);
   if (pizzaConfig in pizzaConfigs) {
+    const newCount = pizzaConfigs[pizzaConfig].count + 1;
     pizzaConfigs[pizzaConfig] = {
-      ...pizzaConfigs[pizzaConfig],
-      count: pizzaConfigs[pizzaConfig] + 1,
+      count: newCount,
+      price: pizzaConfigurationPrice * newCount,
     };
   } else {
     pizzaConfigs[pizzaConfig] = {
@@ -99,11 +100,12 @@ const printOrderTotal = (subTotal) => {
 };
 
 const printReceipt = (order) => {
+  pizzaConfigs = {};
+
   console.log();
   console.log('-'.repeat(process.stdout.columns));
   console.log('Receipt:');
   console.log('_'.repeat(process.stdout.columns));
-
   subTotal = 0;
   for (let pizza of order) {
     pizza = pizza.trim().toLowerCase();
@@ -112,7 +114,6 @@ const printReceipt = (order) => {
   }
   printPizzaConfigurationTotal();
   printOrderTotal(subTotal);
-
   console.log('-'.repeat(process.stdout.columns));
 };
 

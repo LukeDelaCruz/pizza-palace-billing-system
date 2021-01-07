@@ -9,6 +9,21 @@ describe('printReceipt()', function () {
     this.sinon.stub(console, 'log');
   });
 
+  afterEach(function () {
+    this.sinon.restore();
+  });
+
+  it('should throw an error if no toppings are provided', function () {
+    const noToppingsInput = 'Large - ';
+    const printReceiptSpy = sinon.spy(printReceipt);
+    try {
+      printReceiptSpy([noToppingsInput]);
+    } catch (e) {
+      // pass
+    }
+    expect(printReceiptSpy).to.throw();
+  });
+
   it('should work for the example in the README', function () {
     printReceipt([
       'Large -    Pepperoni,   Cheese,',
@@ -60,14 +75,30 @@ describe('printReceipt()', function () {
     }
   });
 
-  it('should throw an error if no toppings are provided', function () {
-    const noToppingsInput = 'Large - ';
-    const printReceiptSpy = sinon.spy(printReceipt);
-    try {
-      printReceiptSpy([noToppingsInput]);
-    } catch (e) {
-      // pass
+  it('should consider same configurations and tally them together', function () {
+    printReceipt([
+      'Large -    Pepperoni,   Cheese,',
+      'Large -    Cheese, Pepperoni',
+      'Medium -    pepperoni , Cheese, olives',
+      'Medium -    pepperoni , olives,   Cheese',
+      'Small -Pepperoni,Cheese',
+      'Small -Pepperoni,Cheese',
+      'Small -Pepperoni,Cheese',
+      'Small -   Cheese',
+    ]);
+
+    const expectedLinebyLineOutput = [
+      '2 Large, Two Topping Pizza - Cheese and Pepperoni: $36.00',
+      '2 Medium, Three Topping Pizza - Cheese, Olives and Pepperoni: $37.00',
+      '3 Small, Two Topping Pizza - Cheese and Pepperoni: $39.00',
+      '1 Small, One Topping Pizza - Cheese: $12.50',
+      'Subtotal: $124.50',
+      'GST: $6.23',
+      'Total: $130.73',
+    ];
+    expect(console.log.callCount).to.equal(13);
+    for (const output of expectedLinebyLineOutput) {
+      expect(console.log.calledWith(output)).to.be.true;
     }
-    expect(printReceiptSpy).to.throw();
   });
 });

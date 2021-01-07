@@ -10,7 +10,7 @@ readline.on('line', (cmd) => {
   order.push(cmd);
 });
 
-readline.on('close', function (cmd) {
+readline.on('close', (cmd) => {
   printReceipt(order);
   process.exit(0);
 });
