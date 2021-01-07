@@ -20,4 +20,15 @@ const toppingPrices = {
   olives:     { s: 2.0, m: 3.0, l: 4.0 },
 };
 
-module.exports = { gst, pizzaSizePrices, toppingPrices };
+const calculatePizzaPrice = (toppings, sizeKey) => {
+  subPrice = 0;
+  subPrice += pizzaSizePrices[sizeKey];
+  for (const topping of toppings) {
+    if (topping in toppingPrices) {
+      subPrice += toppingPrices[topping][sizeKey];
+    }
+  }
+  return subPrice;
+};
+
+module.exports = { calculatePizzaPrice, gst, toppingPrices };

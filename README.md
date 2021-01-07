@@ -14,6 +14,12 @@ The input is in the following format:
 
 ***
 
+Usage (node.js@14.15.4 and npm@6.14.10):
+
+    $ npm run start
+
+***
+
 Example:
 
 *Input*:
@@ -24,9 +30,9 @@ Example:
 
 *Output*:
 
-    1 Large, Two Topping Pizza - Pepperoni and Cheese: $18.00
-    1 Medium, Two Topping Pizza - Pepperoni and Cheese: $15.50
-    1 Small, Two Topping Pizza - Pepperoni and Cheese: $13.00
+    1 Large, Two Topping Pizza - Cheese and Pepperoni: $18.00
+    1 Medium, Two Topping Pizza - Cheese and Pepperoni: $15.50
+    1 Small, Two Topping Pizza - Cheese and Pepperoni: $13.00
 
     Subtotal: $46.50
     GST: $2.33

@@ -11,16 +11,11 @@ readline.on('line', (cmd) => {
 });
 
 readline.on('close', function (cmd) {
-  console.log('\n');
-  console.log('-'.repeat(process.stdout.columns));
-  console.log('Receipt:');
-  console.log('_'.repeat(process.stdout.columns));
   printReceipt(order);
-
   process.exit(0);
 });
 
 console.clear();
 console.log(
-  'Please enter your new line separated order below (ctrl+c to enter):'
+  'Please enter your new line (including final entry) separated order below (ctrl+c to enter):'
 );
