@@ -17,5 +17,5 @@ readline.on('close', (cmd) => {
 
 console.clear();
 console.log(
-  'Please enter your new line (including final entry) separated order below (ctrl+c to enter):'
+  'Please enter your new line (add new line after final entry) separated order below (ctrl+c to enter):'
 );
