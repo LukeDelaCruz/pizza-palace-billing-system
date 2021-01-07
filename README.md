@@ -4,7 +4,7 @@ A billing system for Pizza Palace that records an order and generates an itemize
 
 The GST (5% - Goods and Services Tax) is calculated on the order (rounded up to the nearest cent).
 
-![](menu.png)
+![](./assets/menu.png)
 
 ---
 
