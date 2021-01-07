@@ -4,7 +4,7 @@
   "description": "A billing system for Pizza Palace that records an order and generates an itemized receipt for the order.",
   "main": "billing.js",
   "scripts": {
-    "start": "node billing.js",
+    "start": "node ./src/billing.js",
     "test": "mocha --recursive './test/*spec.js'",
     "clean": "rm -rf node_modules",
     "build": "npm run clean && npm install"
