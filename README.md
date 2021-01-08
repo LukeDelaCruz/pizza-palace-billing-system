@@ -1,4 +1,5 @@
-# Pizza Palace Billing System ![Node.js CI](https://github.com/LukeDelaCruz/pizza-palace-billing-system/workflows/Node.js%20CI/badge.svg)
+# Pizza Palace Billing System [![Node.js CI](https://github.com/LukeDelaCruz/pizza-palace-billing-system/workflows/Node.js%20CI/badge.svg)](https://github.com/LukeDelaCruz/pizza-palace-billing-system/actions?query=workflow%3A%22Node.js+CI%22)
+
 
 A billing system for Pizza Palace that records an order and generates an itemized receipt for the order.
 
